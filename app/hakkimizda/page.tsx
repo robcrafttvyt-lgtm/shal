@@ -1,3 +1,5 @@
+'use client'
+
 import { Star, Users, Truck, Shield, Heart } from 'lucide-react'
 
 export default function HakkimizdaPage() {
