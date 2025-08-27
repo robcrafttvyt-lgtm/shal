@@ -43,6 +43,24 @@ export default function SepetPage() {
     }
   }
 
+  const handleCheckout = () => {
+    // Sepet boş mu kontrol et
+    if (cartItems.length === 0) {
+      toast.error('Sepetiniz boş! Ürün ekleyerek tekrar deneyin.')
+      return
+    }
+
+    // Kullanıcı giriş yapmış mı kontrol et
+    if (!user) {
+      toast.error('Ödeme yapabilmek için giriş yapmanız gerekiyor!')
+      router.push('/giris')
+      return
+    }
+
+    // Tüm kontroller başarılı - checkout sayfasına yönlendir
+    router.push('/checkout')
+  }
+
   const subtotal = getTotalPrice()
   const freeShippingThreshold = 200
   const actualShipping = subtotal >= freeShippingThreshold ? 0 : shipping
