@@ -43,7 +43,7 @@ export default function GirisPage() {
           name: 'Müşteri',
           type: 'customer'
         }))
-        router.push('/')
+        router.push('/profil')
       } else {
         toast.error('E-posta ve şifre gerekli!')
       }
