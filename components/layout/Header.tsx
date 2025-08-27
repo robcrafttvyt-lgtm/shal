@@ -21,7 +21,8 @@ export default function Header() {
       const currentUser = await getUser()
       setUser(currentUser)
     } catch (error) {
-      console.error('Kullanıcı kontrolü hatası:', error)
+      console.log('Supabase henüz yapılandırılmamış, demo modda çalışıyor')
+      setUser(null)
     } finally {
       setIsLoading(false)
     }
