@@ -2,11 +2,13 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { ShoppingCart, User, Menu, X, Search } from 'lucide-react'
 import { supabase, getUser } from '@/lib/supabase'
 import { useCart } from '@/lib/cartContext'
 
 export default function Header() {
+  const router = useRouter()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [user, setUser] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -18,8 +20,14 @@ export default function Header() {
 
   const checkUser = async () => {
     try {
-      const currentUser = await getUser()
-      setUser(currentUser)
+      // Önce localStorage'dan kontrol et
+      const localUser = localStorage.getItem('user')
+      if (localUser) {
+        setUser(JSON.parse(localUser))
+      } else {
+        const currentUser = await getUser()
+        setUser(currentUser)
+      }
     } catch (error) {
       console.log('Supabase henüz yapılandırılmamış, demo modda çalışıyor')
       setUser(null)
@@ -34,8 +42,9 @@ export default function Header() {
     } catch (error) {
       console.log('Demo modda çıkış yapılıyor')
     }
+    localStorage.removeItem('user')
     setUser(null)
-    window.location.href = '/'
+    router.push('/')
   }
 
   const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0)
