@@ -57,7 +57,7 @@ export default function Header() {
             <Link href="/" className="text-gray-700 hover:text-primary-600 transition-colors">
               Ana Sayfa
             </Link>
-            <Link href="/urun" className="text-gray-700 hover:text-primary-600 transition-colors">
+            <Link href="/urunler" className="text-gray-700 hover:text-primary-600 transition-colors">
               Ürünler
             </Link>
             <Link href="/hakkimizda" className="text-gray-700 hover:text-primary-600 transition-colors">
@@ -116,14 +116,14 @@ export default function Header() {
                 </div>
               ) : (
                 <div className="flex items-center space-x-2">
-                  <Link 
-                    href="/auth/giris" 
+                  <Link
+                    href="/giris"
                     className="text-gray-700 hover:text-primary-600 transition-colors text-sm"
                   >
                     Giriş
                   </Link>
-                  <Link 
-                    href="/auth/kayit" 
+                  <Link
+                    href="/kayit"
                     className="bg-primary-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-primary-700 transition-colors"
                   >
                     Kayıt Ol
@@ -159,7 +159,7 @@ export default function Header() {
               <Link href="/" className="block px-3 py-2 text-gray-700 hover:bg-gray-50">
                 Ana Sayfa
               </Link>
-              <Link href="/urun" className="block px-3 py-2 text-gray-700 hover:bg-gray-50">
+              <Link href="/urunler" className="block px-3 py-2 text-gray-700 hover:bg-gray-50">
                 Ürünler
               </Link>
               <Link href="/hakkimizda" className="block px-3 py-2 text-gray-700 hover:bg-gray-50">
