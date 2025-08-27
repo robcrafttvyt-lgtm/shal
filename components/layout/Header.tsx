@@ -108,9 +108,9 @@ export default function Header() {
                   <Link href="/profil" className="text-gray-700 hover:text-primary-600 transition-colors">
                     <User className="h-6 w-6" />
                   </Link>
-                  {user.user_metadata?.user_type === 'admin' && (
-                    <Link 
-                      href="/admin" 
+                  {user.type === 'admin' && (
+                    <Link
+                      href="/admin"
                       className="hidden md:block bg-primary-600 text-white px-3 py-1 rounded text-sm hover:bg-primary-700 transition-colors"
                     >
                       Admin
@@ -183,7 +183,7 @@ export default function Header() {
                   <Link href="/profil" className="block px-3 py-2 text-gray-700 hover:bg-gray-50">
                     Profil
                   </Link>
-                  {user.user_metadata?.user_type === 'admin' && (
+                  {user.type === 'admin' && (
                     <Link href="/admin" className="block px-3 py-2 text-gray-700 hover:bg-gray-50">
                       Admin Panel
                     </Link>
