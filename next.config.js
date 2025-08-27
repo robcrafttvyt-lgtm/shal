@@ -1,10 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    appDir: true,
-  },
   images: {
-    domains: ['localhost', 'djxbpizuelexmvgdgyfv.supabase.co'],
+    domains: ['localhost', 'vdvxggcmaiuzvnrhuxjh.supabase.co'],
   },
 }
 
