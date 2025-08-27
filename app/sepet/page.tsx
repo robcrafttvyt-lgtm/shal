@@ -257,7 +257,10 @@ export default function SepetPage() {
               </div>
 
               {/* Checkout Button */}
-              <button className="w-full bg-primary-600 hover:bg-primary-700 text-white py-3 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center space-x-2 mb-4">
+              <button
+                onClick={handleCheckout}
+                className="w-full bg-primary-600 hover:bg-primary-700 text-white py-3 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center space-x-2 mb-4"
+              >
                 <CreditCard className="h-5 w-5" />
                 <span>Ödeme Yap</span>
               </button>
