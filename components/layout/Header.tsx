@@ -29,7 +29,11 @@ export default function Header() {
   }
 
   const handleLogout = async () => {
-    await supabase.auth.signOut()
+    try {
+      await supabase.auth.signOut()
+    } catch (error) {
+      console.log('Demo modda çıkış yapılıyor')
+    }
     setUser(null)
     window.location.href = '/'
   }
