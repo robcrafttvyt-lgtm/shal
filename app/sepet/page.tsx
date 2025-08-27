@@ -8,10 +8,20 @@ import { useCart } from '@/lib/cartContext'
 import toast from 'react-hot-toast'
 
 export default function SepetPage() {
+  const router = useRouter()
   const { cartItems, updateQuantity, removeFromCart, clearCart, getTotalPrice } = useCart()
   const [promoCode, setPromoCode] = useState('')
   const [isPromoApplied, setIsPromoApplied] = useState(false)
   const [shipping, setShipping] = useState(15) // 15₺ kargo ücreti
+  const [user, setUser] = useState<any>(null)
+
+  useEffect(() => {
+    // Kullanıcı durumunu kontrol et
+    const localUser = localStorage.getItem('user')
+    if (localUser) {
+      setUser(JSON.parse(localUser))
+    }
+  }, [])
 
   const handleQuantityChange = (productId: string, size: string, newQuantity: number) => {
     if (newQuantity < 1) {
