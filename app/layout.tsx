@@ -3,6 +3,7 @@ import './globals.css'
 import { Toaster } from 'react-hot-toast'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import { CartProvider } from '@/lib/cartContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
