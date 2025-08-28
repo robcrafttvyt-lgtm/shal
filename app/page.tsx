@@ -7,6 +7,8 @@ import { Star, ShoppingCart, Eye, Heart } from 'lucide-react'
 import { Product, supabase } from '@/lib/supabase'
 import { useCart } from '@/lib/cartContext'
 import toast from 'react-hot-toast'
+import HeroSection from '@/components/ui/HeroSection'
+import ProductGrid from '@/components/ui/ProductGrid'
 
 // Demo veriler - Gerçek uygulamada Supabase'den gelecek
 const demoProducts: Product[] = [
