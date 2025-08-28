@@ -6,6 +6,8 @@ import Link from 'next/link'
 import { ArrowLeft, CreditCard, Shield, Truck, CheckCircle, User, MapPin, Phone, Mail } from 'lucide-react'
 import { useCart } from '@/lib/cartContext'
 import toast from 'react-hot-toast'
+import StripePayment from '@/components/payment/StripePayment'
+import PayPalPayment from '@/components/payment/PayPalPayment'
 
 export default function CheckoutPage() {
   const router = useRouter()
