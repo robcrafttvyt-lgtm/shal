@@ -333,23 +333,47 @@ export default function CheckoutPage() {
               </div>
 
               <div className="space-y-4 mb-6">
-                <label className="flex items-center space-x-3 cursor-pointer">
+                <label className="flex items-center space-x-3 cursor-pointer p-4 border border-gray-200 rounded-lg hover:bg-gray-50">
                   <input
                     type="radio"
                     name="paymentMethod"
-                    value="credit-card"
-                    checked={paymentMethod === 'credit-card'}
+                    value="stripe"
+                    checked={paymentMethod === 'stripe'}
                     onChange={(e) => setPaymentMethod(e.target.value)}
                     className="text-primary-600 focus:ring-primary-500"
                   />
-                  <span className="font-medium">Kredi Kartı</span>
-                  <div className="flex space-x-1">
-                    <div className="w-8 h-5 bg-blue-600 rounded text-white text-xs flex items-center justify-center">VISA</div>
-                    <div className="w-8 h-5 bg-red-600 rounded text-white text-xs flex items-center justify-center">MC</div>
+                  <div className="flex-1">
+                    <div className="flex items-center space-x-2">
+                      <span className="font-medium">Kredi Kartı (Stripe)</span>
+                      <div className="flex space-x-1">
+                        <div className="w-8 h-5 bg-blue-600 rounded text-white text-xs flex items-center justify-center">VISA</div>
+                        <div className="w-8 h-5 bg-red-600 rounded text-white text-xs flex items-center justify-center">MC</div>
+                        <div className="w-8 h-5 bg-blue-800 rounded text-white text-xs flex items-center justify-center">AMEX</div>
+                      </div>
+                    </div>
+                    <p className="text-sm text-gray-500">Güvenli SSL şifrelemesi ile korunan ödeme</p>
                   </div>
                 </label>
-                
-                <label className="flex items-center space-x-3 cursor-pointer">
+
+                <label className="flex items-center space-x-3 cursor-pointer p-4 border border-gray-200 rounded-lg hover:bg-gray-50">
+                  <input
+                    type="radio"
+                    name="paymentMethod"
+                    value="paypal"
+                    checked={paymentMethod === 'paypal'}
+                    onChange={(e) => setPaymentMethod(e.target.value)}
+                    className="text-primary-600 focus:ring-primary-500"
+                  />
+                  <div className="flex-1">
+                    <div className="flex items-center space-x-2">
+                      <span className="font-medium">PayPal</span>
+                      <div className="w-16 h-5 bg-blue-600 rounded text-white text-xs flex items-center justify-center">PayPal</div>
+                    </div>
+                    <p className="text-sm text-gray-500">PayPal hesabınız veya kartınız ile ödeme</p>
+                  </div>
+                </label>
+
+                <label className="flex items-center space-x-3 cursor-pointer p-4 border border-gray-200 rounded-lg hover:bg-gray-50">
                   <input
                     type="radio"
                     name="paymentMethod"
@@ -358,62 +382,56 @@ export default function CheckoutPage() {
                     onChange={(e) => setPaymentMethod(e.target.value)}
                     className="text-primary-600 focus:ring-primary-500"
                   />
-                  <span className="font-medium">Havale/EFT</span>
-                  <span className="text-sm text-gray-500">(Sipariş onaylandıktan sonra ödeme)</span>
+                  <div className="flex-1">
+                    <span className="font-medium">Havale/EFT</span>
+                    <p className="text-sm text-gray-500">Sipariş onaylandıktan sonra ödeme yapın</p>
+                  </div>
                 </label>
               </div>
 
-              {paymentMethod === 'credit-card' && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-t pt-6">
-                  <div className="md:col-span-2">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Kart Üzerindeki İsim *</label>
-                    <input
-                      type="text"
-                      required
-                      value={paymentInfo.cardName}
-                      onChange={(e) => handleInputChange('payment', 'cardName', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      placeholder="JOHN DOE"
-                    />
-                  </div>
-                  
-                  <div className="md:col-span-2">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Kart Numarası *</label>
-                    <input
-                      type="text"
-                      required
-                      value={paymentInfo.cardNumber}
-                      onChange={(e) => handleInputChange('payment', 'cardNumber', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      placeholder="1234 5678 9012 3456"
-                      maxLength={19}
-                    />
-                  </div>
-                  
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Son Kullanma *</label>
-                    <input
-                      type="text"
-                      required
-                      value={paymentInfo.expiryDate}
-                      onChange={(e) => handleInputChange('payment', 'expiryDate', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      placeholder="MM/YY"
-                      maxLength={5}
-                    />
-                  </div>
-                  
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">CVV *</label>
-                    <input
-                      type="text"
-                      required
-                      value={paymentInfo.cvv}
-                      onChange={(e) => handleInputChange('payment', 'cvv', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      placeholder="123"
-                      maxLength={4}
-                    />
+              {/* Payment Components */}
+              {paymentMethod === 'stripe' && (
+                <div className="border-t pt-6">
+                  <StripePayment
+                    amount={total}
+                    onSuccess={handlePaymentSuccess}
+                    onError={handlePaymentError}
+                    isLoading={isProcessing}
+                  />
+                </div>
+              )}
+
+              {paymentMethod === 'paypal' && (
+                <div className="border-t pt-6">
+                  <PayPalPayment
+                    amount={total}
+                    currency="USD"
+                    onSuccess={handlePaymentSuccess}
+                    onError={handlePaymentError}
+                    isLoading={isProcessing}
+                  />
+                </div>
+              )}
+
+              {paymentMethod === 'bank-transfer' && (
+                <div className="border-t pt-6">
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <h4 className="font-medium text-blue-900 mb-2">Banka Bilgileri</h4>
+                    <div className="text-sm text-blue-700 space-y-1">
+                      <p><strong>Banka:</strong> Türkiye İş Bankası</p>
+                      <p><strong>Hesap Sahibi:</strong> Şal Dünyası Tekstil Ltd. Şti.</p>
+                      <p><strong>IBAN:</strong> TR12 0006 4000 0011 2345 6789 01</p>
+                      <p><strong>Açıklama:</strong> Sipariş No: {Math.random().toString(36).substr(2, 9).toUpperCase()}</p>
+                    </div>
+                    <div className="mt-4">
+                      <button
+                        onClick={handleBankTransferOrder}
+                        disabled={isProcessing}
+                        className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-6 py-2 rounded-lg font-medium transition-colors"
+                      >
+                        {isProcessing ? 'İşleniyor...' : 'Havale/EFT ile Sipariş Ver'}
+                      </button>
+                    </div>
                   </div>
                 </div>
               )}
