@@ -214,111 +214,80 @@ function ProductCard({ product }: ProductCardProps) {
 
 export default function HomePage() {
   const [products, setProducts] = useState<Product[]>(demoProducts)
-  const [isLoading, setIsLoading] = useState(false)
-  const [searchTerm, setSearchTerm] = useState('')
-  const [sortBy, setSortBy] = useState('newest')
-
-  // Ürünleri filtrele ve sırala
-  const filteredProducts = products
-    .filter(product =>
-      product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.description.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-    .sort((a, b) => {
-      switch (sortBy) {
-        case 'price-low':
-          return a.price - b.price
-        case 'price-high':
-          return b.price - a.price
-        case 'name':
-          return a.title.localeCompare(b.title)
-        default:
-          return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-      }
-    })
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary-600 to-primary-700 text-white py-16">
+    <div className="min-h-screen">
+      {/* Hero Section - Builder.io Compatible */}
+      <HeroSection
+        title="Premium Şal Koleksiyonu"
+        subtitle="En kaliteli kumaşlardan üretilmiş, her tarza uygun şallar"
+        primaryButtonText="Koleksiyonu İncele"
+        secondaryButtonText="İletişim"
+        showStats={true}
+      />
+
+      {/* Featured Products Section - Builder.io Compatible */}
+      <ProductGrid
+        title="Öne Çıkan Ürünler"
+        maxProducts={6}
+        showFilter={false}
+        products={products}
+      />
+
+      {/* Features Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-light text-gray-800 mb-4">
+              Neden Şal Dünyası?
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-primary-400 to-primary-600 mx-auto rounded-full"></div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center group">
+              <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary-200 transition-colors">
+                <span className="text-2xl">🌟</span>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">Premium Kalite</h3>
+              <p className="text-gray-600">En kaliteli kumaşlar ve özenli işçilik</p>
+            </div>
+
+            <div className="text-center group">
+              <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary-200 transition-colors">
+                <span className="text-2xl">🚚</span>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">Hızlı Teslimat</h3>
+              <p className="text-gray-600">500₺ ve üzeri siparişlerde ücretsiz kargo</p>
+            </div>
+
+            <div className="text-center group">
+              <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary-200 transition-colors">
+                <span className="text-2xl">💝</span>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">Güvenli Alışveriş</h3>
+              <p className="text-gray-600">14 gün iade garantisi ve güvenli ödeme</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="bg-gradient-to-r from-secondary-50 to-primary-50 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4">
-            Premium Şal Koleksiyonu
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 opacity-90">
-            En kaliteli kumaşlardan üretilmiş, her tarza uygun şallar
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-primary-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-              Koleksiyonu İncele
-            </button>
-            <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-primary-600 transition-colors">
-              İletişim
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Filters & Search */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-8">
-          <div className="flex-1 max-w-md">
-            <input
-              type="text"
-              placeholder="Ürün ara..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-            />
-          </div>
-          
-          <div className="flex items-center space-x-4">
-            <span className="text-gray-700 font-medium">Sıralama:</span>
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-            >
-              <option value="newest">En Yeni</option>
-              <option value="price-low">Fiyat (Düşük-Yüksek)</option>
-              <option value="price-high">Fiyat (Yüksek-Düşük)</option>
-              <option value="name">İsme Göre</option>
-            </select>
-          </div>
-        </div>
-
-        {/* Products Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-
-        {filteredProducts.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">
-              Aradığınız kriterlere uygun ürün bulunamadı.
-            </p>
-          </div>
-        )}
-      </section>
-
-      {/* Newsletter */}
-      <section className="bg-gray-100 py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Kampanyalardan İlk Sen Haberdar Ol
+          <h2 className="text-3xl md:text-4xl font-light text-gray-800 mb-4">
+            Yeni Koleksiyonlardan Haberdar Olun
           </h2>
-          <p className="text-gray-600 mb-8">
-            Yeni ürünler ve özel indirimler hakkında bilgi almak için e-posta listesine katıl.
+          <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
+            E-posta listemize katılın ve yeni ürünler, özel indirimler ve kampanyalardan ilk siz haberdar olun.
           </p>
-          <div className="flex flex-col sm:flex-row max-w-md mx-auto gap-4">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
             <input
               type="email"
               placeholder="E-posta adresiniz"
-              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="flex-1 px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             />
-            <button className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+            <button className="bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors shadow-sm hover:shadow-md">
               Abone Ol
             </button>
           </div>
