@@ -135,6 +135,62 @@ export default function CheckoutPage() {
         <div className="lg:grid lg:grid-cols-3 lg:gap-8">
           {/* Checkout Form */}
           <div className="lg:col-span-2 space-y-8">
+            {/* Guest/Login Options */}
+            {!user && (
+              <div className="bg-white rounded-lg shadow-sm p-6">
+                <h2 className="text-lg font-semibold text-gray-900 mb-4">Nasıl devam etmek istiyorsunuz?</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="p-4 border-2 border-primary-200 bg-primary-50 rounded-lg">
+                    <h3 className="font-medium text-gray-900 mb-2">Misafir Olarak Devam Et</h3>
+                    <p className="text-sm text-gray-600 mb-3">
+                      Hızlı checkout - Hesap oluşturmadan sipariş verin
+                    </p>
+                    <div className="text-xs text-primary-600">
+                      ✓ Hızlı ödeme ✓ Hesap gerektirmez
+                    </div>
+                  </div>
+                  <div className="p-4 border border-gray-200 rounded-lg">
+                    <h3 className="font-medium text-gray-900 mb-2">Giriş Yap / Kayıt Ol</h3>
+                    <p className="text-sm text-gray-600 mb-3">
+                      Sipariş geçmişi ve hızlı checkout için hesap oluşturun
+                    </p>
+                    <Link
+                      href="/giris"
+                      className="inline-block bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded text-sm font-medium transition-colors"
+                    >
+                      Giriş Yap
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* User Info for Logged In Users */}
+            {user && (
+              <div className="bg-white rounded-lg shadow-sm p-6">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+                      <User className="h-5 w-5 text-primary-600" />
+                    </div>
+                    <div>
+                      <h3 className="font-medium text-gray-900">{user.name}</h3>
+                      <p className="text-sm text-gray-600">{user.email}</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => {
+                      localStorage.removeItem('user')
+                      setUser(null)
+                      toast.success('Çıkış yapıldı')
+                    }}
+                    className="text-sm text-gray-500 hover:text-gray-700"
+                  >
+                    Farklı hesap kullan
+                  </button>
+                </div>
+              </div>
+            )}
             {/* Billing Information */}
             <div className="bg-white rounded-lg shadow-sm p-6">
               <div className="flex items-center space-x-2 mb-6">
