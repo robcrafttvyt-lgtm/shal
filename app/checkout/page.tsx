@@ -35,7 +35,35 @@ export default function CheckoutPage() {
     cardName: ''
   })
 
-  const [paymentMethod, setPaymentMethod] = useState('credit-card')
+  const [paymentMethod, setPaymentMethod] = useState('stripe')
+
+  const handlePaymentSuccess = (paymentData: any) => {
+    console.log('Payment successful:', paymentData)
+    toast.success('Ödeme başarıyla tamamlandı!')
+    clearCart()
+
+    // Sipariş tamamlandı sayfasına yönlendir
+    alert(`Siparişiniz alındı!\n\nSipariş Özeti:\n- ${cartItems.length} ürün\n- Toplam: ₺${total.toFixed(2)}\n\nSipariş takip bilgileri e-posta adresinize gönderilecektir.`)
+    router.push('/')
+  }
+
+  const handlePaymentError = (error: string) => {
+    console.error('Payment error:', error)
+    toast.error(`Ödeme hatası: ${error}`)
+  }
+
+  const handleBankTransferOrder = async () => {
+    setIsProcessing(true)
+
+    // Demo ödeme işlemi (3 saniye bekleme)
+    await new Promise(resolve => setTimeout(resolve, 3000))
+
+    toast.success('Havale/EFT siparişiniz alındı! Ödeme bilgileri e-postanıza gönderildi.')
+    clearCart()
+
+    alert(`Havale/EFT Siparişiniz Alındı!\n\nSipariş Özeti:\n- ${cartItems.length} ürün\n- Toplam: ₺${total.toFixed(2)}\n\nÖdeme bilgileri e-posta adresinize gönderilmiştir.`)
+    router.push('/')
+  }
 
   useEffect(() => {
     checkAuthAndCart()
