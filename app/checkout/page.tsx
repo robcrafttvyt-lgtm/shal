@@ -40,12 +40,10 @@ export default function CheckoutPage() {
   }, [])
 
   const checkAuthAndCart = () => {
-    // Kullanıcı kontrolü
+    // Kullanıcı kontrolü (isteğe bağlı)
     const localUser = localStorage.getItem('user')
-    if (!localUser) {
-      toast.error('Ödeme yapabilmek için giriş yapmanız gerekiyor!')
-      router.push('/giris')
-      return
+    if (localUser) {
+      setUser(JSON.parse(localUser))
     }
 
     // Sepet kontrolü
@@ -55,7 +53,6 @@ export default function CheckoutPage() {
       return
     }
 
-    setUser(JSON.parse(localUser))
     setIsLoading(false)
   }
 
