@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { ShoppingCart, User, Menu, X, Search } from 'lucide-react'
+import { ShoppingCart, User, Menu, X, Search, Heart, MapPin, Phone } from 'lucide-react'
 import { supabase, getUser } from '@/lib/supabase'
 import { useCart } from '@/lib/cartContext'
 
@@ -12,6 +12,8 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [user, setUser] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
   const { cartItems } = useCart()
 
   useEffect(() => {
@@ -47,7 +49,27 @@ export default function Header() {
     router.push('/')
   }
 
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      router.push(`/urunler?search=${encodeURIComponent(searchQuery.trim())}`)
+      setSearchQuery('')
+      setIsSearchOpen(false)
+    }
+  }
+
   const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0)
+
+  const navigation = [
+    { name: 'Tüm Ürünler', href: '/urunler' },
+    { name: "Online'a Özel", href: '/online-ozel' },
+    { name: 'Yeni Sezon', href: '/yeni-sezon' },
+    { name: 'Şal', href: '/sal', current: true },
+    { name: 'Monogram', href: '/monogram' },
+    { name: 'Giyim', href: '/giyim' },
+    { name: 'Çanta', href: '/canta' },
+    { name: 'Outlet', href: '/outlet' },
+  ]
 
   return (
     <header className="bg-white shadow-sm border-b sticky top-0 z-40">
