@@ -50,14 +50,7 @@ export default function SepetPage() {
       return
     }
 
-    // Kullanıcı giriş yapmış mı kontrol et
-    if (!user) {
-      toast.error('Ödeme yapabilmek için giriş yapmanız gerekiyor!')
-      router.push('/giris')
-      return
-    }
-
-    // Tüm kontroller başarılı - checkout sayfasına yönlendir
+    // Checkout sayfasına yönlendir (giriş yapmış veya misafir kullanıcı)
     router.push('/checkout')
   }
 
