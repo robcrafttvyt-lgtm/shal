@@ -18,8 +18,8 @@ const demoProducts: Product[] = [
     image_url: '/images/sal1.jpg',
     sizes: ['Tek Beden'],
     stock: 25,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
+    created_at: '2024-01-15T10:00:00.000Z',
+    updated_at: '2024-01-15T10:00:00.000Z',
   },
   {
     id: '2',
@@ -29,8 +29,8 @@ const demoProducts: Product[] = [
     image_url: '/images/sal2.jpg',
     sizes: ['S', 'M', 'L'],
     stock: 15,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
+    created_at: '2024-01-14T15:30:00.000Z',
+    updated_at: '2024-01-14T15:30:00.000Z',
   },
   {
     id: '3',
@@ -40,8 +40,8 @@ const demoProducts: Product[] = [
     image_url: '/images/sal3.jpg',
     sizes: ['Tek Beden'],
     stock: 30,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
+    created_at: '2024-01-13T09:15:00.000Z',
+    updated_at: '2024-01-13T09:15:00.000Z',
   },
   {
     id: '4',
@@ -51,8 +51,8 @@ const demoProducts: Product[] = [
     image_url: '/images/sal4.jpg',
     sizes: ['S', 'M', 'L', 'XL'],
     stock: 40,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
+    created_at: '2024-01-12T14:20:00.000Z',
+    updated_at: '2024-01-12T14:20:00.000Z',
   },
   {
     id: '5',
@@ -62,8 +62,8 @@ const demoProducts: Product[] = [
     image_url: '/images/sal5.jpg',
     sizes: ['Tek Beden'],
     stock: 20,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
+    created_at: '2024-01-11T11:45:00.000Z',
+    updated_at: '2024-01-11T11:45:00.000Z',
   },
   {
     id: '6',
@@ -73,8 +73,8 @@ const demoProducts: Product[] = [
     image_url: '/images/sal6.jpg',
     sizes: ['S', 'M', 'L'],
     stock: 35,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
+    created_at: '2024-01-10T16:00:00.000Z',
+    updated_at: '2024-01-10T16:00:00.000Z',
   },
 ]
 
