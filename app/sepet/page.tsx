@@ -50,7 +50,7 @@ export default function SepetPage() {
       return
     }
 
-    // Checkout sayfasına yönlendir (giriş yapmış veya misafir kullanıcı)
+    // Checkout sayfasına yönlendir (giriş yapm��ş veya misafir kullanıcı)
     router.push('/checkout')
   }
 
@@ -255,8 +255,14 @@ export default function SepetPage() {
                 className="w-full bg-primary-600 hover:bg-primary-700 text-white py-3 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center space-x-2 mb-4"
               >
                 <CreditCard className="h-5 w-5" />
-                <span>Ödeme Yap</span>
+                <span>Siparişi Tamamla</span>
               </button>
+
+              <div className="text-center mb-4">
+                <p className="text-xs text-gray-600">
+                  {user ? 'Kayıtlı kullanıcı olarak devam ediyorsunuz' : 'Giriş yapmadan da sipariş verebilirsiniz'}
+                </p>
+              </div>
 
               {/* Security & Shipping Info */}
               <div className="space-y-3 text-sm text-gray-600">
